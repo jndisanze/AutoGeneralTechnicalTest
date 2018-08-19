@@ -1,28 +1,35 @@
 package au.autogeneral.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import au.autogeneral.api.exception.AGResourceNotFoundException;
+import au.autogeneral.api.exception.TaskException;
 import au.autogeneral.api.exception.TodoException;
 import au.autogeneral.api.model.Balanced;
-import au.autogeneral.api.model.Completed;
 import au.autogeneral.api.model.Task;
 import au.autogeneral.api.model.Todo;
 import au.autogeneral.api.repository.TodoRepository;
 
 
 
-//@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+//@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600) //Allow connection origin Angular CLI
 @RestController
 @RequestMapping("/")
 public class AutoGeneralController {
 
     @Autowired
     TodoRepository todoRepository;
-
+    
+    @PostMapping("/task/")
+    public Todo createTask() throws TaskException{
+    	 throw new TaskException("NOTFOUNDERROR");
+         
+    }
+    @GetMapping("/task/")
+    public Todo getTask() throws TaskException{
+    	 throw new TaskException("NOTFOUNDERROR");
+         
+    }
     @GetMapping("/tasks/validateBrackets/{str}")
     public Task isValidateBrackets(@PathVariable(value = "str") String taskStr) throws TodoException {
     	if(taskStr.length() > 50) throw new TodoException("ValidationError");
@@ -31,7 +38,7 @@ public class AutoGeneralController {
         t.setIsBalanced(Balanced.isBalancedEfficient(taskStr));
         return t;
     }
-
+    
     @GetMapping("/todo/{id}")
     public Todo isCompleted(@PathVariable(value = "id") Long todoId) throws Exception {
     	return  todoRepository.findById(todoId)

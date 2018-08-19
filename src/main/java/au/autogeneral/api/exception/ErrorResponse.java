@@ -24,11 +24,11 @@ public class ErrorResponse {
 		this.errorCode = errorCode;
 	}
 
-	public String getMessage() {
+	public String getName() {
 		return name;
 	}
 
-	public void setMessage(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
