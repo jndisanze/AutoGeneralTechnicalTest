@@ -48,11 +48,13 @@ The app will start running at <http://localhost:8080>.
 The app defines following CRUD APIs.
 
     
-    POST /todo/
+    POST /todo/{inputStr}
     
     GET /tasks/validateBrackets/{taskStr}
     
-    GET /todo/{inputStr}
+    GET /todo/{id}
+    
+    
     
 
 You can test them using postman or any other rest client.
