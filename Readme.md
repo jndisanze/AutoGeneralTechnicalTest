@@ -52,7 +52,11 @@ The app defines following CRUD APIs.
     
     GET /tasks/validateBrackets/{taskStr}
     
-    GET /todo/{id}
+    GET /todo/{id} 
+    
+    DELETE /todo/{id} 
+    
+    PUT /todo/{id}   (IN Experimental)
     
     
     

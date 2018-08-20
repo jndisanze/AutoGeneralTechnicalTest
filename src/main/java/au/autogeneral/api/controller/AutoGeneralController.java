@@ -1,8 +1,12 @@
 package au.autogeneral.api.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import au.autogeneral.api.exception.AGResourceNotFoundException;
 import au.autogeneral.api.exception.TaskException;
 import au.autogeneral.api.exception.TodoException;
 import au.autogeneral.api.model.Balanced;
@@ -51,5 +55,29 @@ public class AutoGeneralController {
     	Todo todo = new Todo();
     	todo.setTitle(inputStr);
         return todoRepository.save(todo);	
+    }
+    
+    @PutMapping("/todo/")
+    public Todo updateTodo(@PathVariable(value = "id") Long todoId,
+                                           @Valid @RequestBody Todo todoDetails) throws Exception {
+
+    	Todo todo = todoRepository.findById(todoId)
+                .orElseThrow(() -> new Exception("NotFoundError"));
+
+    	todo.setTitle(todoDetails.getText());
+        todo.setIsCompleted(todoDetails.getIsCompleted());
+
+        Todo updatedTodo = todoRepository.save(todo);
+        return updatedTodo;
+    }
+
+    @DeleteMapping("/todo/{id}")
+    public ResponseEntity<?> deleteTodo(@PathVariable(value = "id") Long todoId) throws Exception {
+        Todo todo = todoRepository.findById(todoId)
+                .orElseThrow(() -> new Exception("NotFoundError"));
+
+        todoRepository.delete(todo);
+
+        return ResponseEntity.ok().build();
     }
 }
